@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Práctica 5 | IA Integrada</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <h1>Integración tecnológica con modelo generativo</h1>
+      </section>
+
+      <section class="panel">
+        <form id="generator-form" class="form-grid">
+          <p class="lede">
+            Endpoint remoto: <strong id="remoteApiUrl">cargando...</strong>
+          </p>
+
+          <div class="actions">
+            <button id="healthBtn" type="button" class="ghost">Probar conexion remota</button>
+          </div>
+
+          <label>
+            Semilla de texto
+            <textarea
+              id="seed"
+              rows="4"
+              placeholder="Ejemplo: En una ciudad inteligente, los sensores detectaron..."
+              required
+            ></textarea>
+          </label>
+
+          <div class="row two-cols">
+            <label>
+              Número de palabras
+              <input id="nWords" type="number" min="1" max="200" value="40" />
+            </label>
+
+            <label>
+              Estrategia
+              <select id="strategy">
+                <option value="greedy">Greedy</option>
+                <option value="sampling">Sampling</option>
+                <option value="top_k">Top-K</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="row two-cols">
+            <label>
+              Temperatura
+              <input id="temperature" type="number" min="0.1" max="2" step="0.1" value="1.0" />
+            </label>
+
+            <label>
+              Top-K
+              <input id="topK" type="number" min="1" max="500" value="40" />
+            </label>
+          </div>
+
+          <div class="actions">
+            <button id="submitBtn" type="submit">Generar texto</button>
+            <button id="speakBtn" type="button" class="ghost">Hablar resultado</button>
+            <button id="stopSpeakBtn" type="button" class="ghost">Detener voz</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel output-wrap">
+        <div class="meta">
+          <span id="status">Listo</span>
+          <span id="elapsed"></span>
+        </div>
+        <article id="output" class="output" aria-live="polite">
+          El texto generado aparecerá aquí.
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Desarrollado por: José A. Rodríguez López</p>
+        <p class="kicker">Programación de IA · Práctica 5</p>
+    </footer>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

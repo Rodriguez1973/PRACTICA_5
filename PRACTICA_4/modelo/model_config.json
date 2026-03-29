@@ -1,8 +1,0 @@
-{
-  "vocab_size": 15000,
-  "embedding_dim": 384,
-  "lstm_units": 640,
-  "num_lstm_layers": 3,
-  "dropout_rate": 0.25,
-  "sequence_length": 64
-}
