@@ -1,6 +1,20 @@
+<!--
+              PRÁCTICA 5: Integración, automatización y modelo de negocio
+        Interfaz de usuario para generación de texto con modelo generativo
+                     Programación de Inteligencia Artificial
+
+Este archivo HTML es la interfaz de usuario para la práctica 5, diseñada para interactuar con un modelo generativo a través de un endpoint remoto. La estructura del documento incluye un formulario para configurar los parámetros de generación, un área para mostrar el texto generado, y elementos para mostrar el estado y el tiempo transcurrido.
+
+DESARROLLADO POR:   José A. Rodríguez López
+FECHA: 29 de Marzo, 2026
+PROYECTO: Programación de Inteligencia Artificial
+================================================================================
+-->
+
 <!doctype html>
 <html lang="es">
   <head>
+    <!-- Metadatos base y recursos de estilo global -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Práctica 5 | IA Integrada</title>
@@ -14,12 +28,17 @@
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
+    <!-- Fondo animado decorativo -->
     <canvas id="fondoCircuito"></canvas>
+
+    <!-- Contenido principal de la interfaz -->
     <main class="contenedor-principal">
+      <!-- Encabezado de la práctica -->
       <section class="cabecera">
         <h1>Integración tecnológica con modelo generativo</h1>
       </section>
 
+      <!-- Panel de entrada: configuración y envío de generación -->
       <section class="panel panel-principal">
         <form id="formulario-generador" class="formulario-cuadricula">
           <p class="resumen-endpoint">
@@ -43,7 +62,7 @@
           <div class="fila dos-columnas">
             <label>
               Número de palabras
-              <input id="numeroPalabras" type="number" min="1" max="200" value="40" />
+              <input id="numeroPalabras" type="number" min="1" max="100" value="40" />
             </label>
 
             <label>
@@ -76,6 +95,7 @@
         </form>
       </section>
 
+      <!-- Panel de salida: estado y texto generado -->
       <section class="panel panel-secundario contenedor-salida">
         <div class="metadatos-estado">
           <span id="estado">Listo</span>
@@ -87,11 +107,13 @@
       </section>
     </main>
 
+    <!-- Pie de página con créditos -->
     <footer class="pie-sitio">
         <p>Desarrollado por: José A. Rodríguez López</p>
         <p class="texto-destacado">Programación de IA · Práctica 5</p>
     </footer>
 
+    <!-- Scripts de animación de fondo y lógica de interacción -->
     <script src="/static/circuito-bg.js"></script>
     <script src="/static/app.js"></script>
   </body>

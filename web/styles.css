@@ -1,28 +1,39 @@
+/* Variables de color y estilos globales para la aplicación web. */
 :root {
-  --hero-ink: #333333;
-  --ink: #333333;
-  --ink-dim: rgba(51, 51, 51, 0.62);
-  --accent: #1A73E8;
-  --accent-strong: #1558B0;
-  --accent-2: #4CAF50;
-  --paper: rgba(247, 247, 247, 0.96);
-  --paper-strong: rgba(247, 247, 247, 0.98);
-  --paper-soft: rgba(243, 243, 243, 0.96);
-  --salida-bg: rgba(247, 247, 247, 0.95);
-  --panel-edge: rgba(51, 51, 51, 0.08);
-  --line: rgba(51, 51, 51, 0.12);
-  --field: #E3E3E3;
+  --tinta-hero: #333333;
+  --tinta: #333333;
+  --tinta-suave: rgba(51, 51, 51, 0.62);
+  --acento: #1A73E8;
+  --acento-fuerte: #1558B0;
+  --acento-secundario: #4CAF50;
+  --papel: rgba(247, 247, 247, 0.96);
+  --papel-fuerte: rgba(247, 247, 247, 0.98);
+  --papel-suave: rgba(243, 243, 243, 0.96);
+  --fondo-salida: rgba(247, 247, 247, 0.95);
+  --borde-panel: rgba(51, 51, 51, 0.08);
+  --linea: rgba(51, 51, 51, 0.12);
+  --campo: #E3E3E3;
 }
 
+/* Estilos globales para la aplicación web. */
 * {
   box-sizing: border-box;
 }
 
+/* Estilos para el cuerpo y la estructura general de la página. */
+html {
+  height: 100%;
+}
+
+/* Estilos para el cuerpo de la página, incluyendo la fuente, colores y fondo con gradientes radiales. */
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   font-family: "Space Grotesk", sans-serif;
   color: #333333;
+  display: flex;
+  flex-direction: column;
   background:
     radial-gradient(circle at 12% 22%, rgba(162, 166, 12, 0.22), transparent 36%),
     radial-gradient(circle at 32% 14%, rgba(12, 166, 47, 0.24), transparent 40%),
@@ -33,6 +44,7 @@ body {
     linear-gradient(160deg, #070b1f 0%, #0c1330 50%, #11133a 100%);
 }
 
+/* Estilos para el lienzo de fondo y la superposición de contenido. */
 canvas {
   position: fixed;
   top: 0;
@@ -40,21 +52,31 @@ canvas {
   z-index: 0;
   opacity: 0.24;
 }
+
+/* Estilos para el contenedor principal y el pie del sitio, incluyendo la posición relativa para permitir la superposición de elementos. */
 .contenedor-principal,
 .pie-sitio {
   position: relative;
   z-index: 1;
 }
 
+/* Estilos para el contenedor principal, utilizando una cuadrícula para organizar la cabecera, el contenido principal y el secundario, con un fondo difuminado y animación de aparición. */
 .contenedor-principal {
-  width: min(980px, 92vw);
-  margin: 17px auto 32px auto;
+  width: min(1240px, 96vw);
+  margin: 17px auto 20px auto;
   display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.75fr);
+  grid-template-areas:
+    "cabecera cabecera"
+    "principal secundario";
   gap: 20px;
+  flex: 1;
+  min-height: 0;
   animation: rise 500ms ease-out;
   isolation: isolate;
 }
 
+/* Estilos para la superposición difuminada detrás del contenido principal, utilizando un gradiente radial y un filtro de desenfoque para crear un efecto visual atractivo. */
 .contenedor-principal::before {
   content: "";
   position: absolute;
@@ -65,14 +87,17 @@ canvas {
   filter: blur(20px);
 }
 
+/* Estilos para la cabecera, organizando el contenido en una columna centrada con espacio entre los elementos, y estilos específicos para el título y el texto destacado. */
 .cabecera {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: 12px;
+  grid-area: cabecera;
 }   
 
+/* Estilos para el título principal en la cabecera, utilizando un tamaño de fuente adaptable con clamp, un color claro con sombra para mejorar la legibilidad sobre el fondo, y un espaciado entre letras para un efecto visual más impactante. */
 .cabecera h1 {
   margin: 8px 0;
   font-size: clamp(1.8rem, 4vw, 3rem);
@@ -82,6 +107,7 @@ canvas {
   text-shadow: 0 6px 24px rgba(2, 10, 20, 0.52);
 }
 
+/* Estilos para el texto destacado en la cabecera, utilizando una fuente monoespaciada para un aspecto técnico, un tamaño de fuente más pequeño, y un espaciado entre letras para resaltar el texto de manera sutil. */
 .texto-destacado {
   margin: 0;
   font-family: "IBM Plex Mono", monospace;
@@ -91,55 +117,71 @@ canvas {
   opacity: 0.78;
 }
 
+/* Estilos para el resumen del endpoint, organizando el contenido en una fila con espacio entre los elementos, y utilizando estilos para manejar el desbordamiento horizontal de manera elegante. */
 .resumen-endpoint {
   margin: 0;
   display: flex;
   align-items: center;
   gap: 0.35rem;
   min-width: 0;
-  white-space: nowrap;
+  flex-wrap: nowrap;
   font-weight: 500;
   color: #333333;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: thin;
 }
 
+/* Estilos para el campo de URL de la API remota, asegurando que no se reduzca demasiado en pantallas pequeñas y que mantenga un tamaño adecuado para su contenido. */
 #urlApiRemota {
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  flex: 0 0 auto;
 }
 
+/* Estilos para los paneles de contenido, utilizando colores y sombras para crear un efecto de profundidad, bordes redondeados para un aspecto moderno, y un fondo con un efecto de papel difuminado. */
 .panel {
-  color: var(--ink);
-  border: 1px solid var(--line);
+  color: var(--tinta);
+  border: 1px solid var(--linea);
   border-radius: 20px;
-  background: var(--paper);
+  background: var(--papel);
   backdrop-filter: blur(6px);
-  box-shadow: 0 18px 42px rgba(4, 14, 24, 0.18), 0 0 0 1px var(--panel-edge);
+  box-shadow: 0 18px 42px rgba(4, 14, 24, 0.18), 0 0 0 1px var(--borde-panel);
   padding: 18px;
+  min-height: 0;
 }
 
+/* Estilos específicos para el panel principal, utilizando un fondo más fuerte y una sombra más pronunciada para destacarlo como el área principal de interacción. */
 .panel-principal {
-  background: var(--paper-strong);
+  grid-area: principal;
+  background: var(--papel-fuerte);
   border-color: rgba(26, 115, 232, 0.16);
   box-shadow: 0 28px 68px rgba(4, 14, 24, 0.24), 0 0 0 1px rgba(26, 115, 232, 0.08);
 }
 
+/* Estilos específicos para el panel secundario, utilizando un fondo más suave y una sombra más ligera para diferenciarlo del panel principal, y organizando su contenido en una columna. */
 .panel-secundario {
-  background: var(--paper-soft);
+  grid-area: secundario;
+  background: var(--papel-suave);
   box-shadow: 0 12px 28px rgba(4, 14, 24, 0.14), 0 0 0 1px rgba(26, 115, 232, 0.06);
+  display: flex;
+  flex-direction: column;
 }
 
+/* Estilos para los formularios, organizando los campos en una cuadrícula con espacio entre ellos, y estilos para las etiquetas y campos de entrada para mejorar la usabilidad y la apariencia visual. */
 .formulario-cuadricula {
   display: grid;
-  gap: 14px;
+  gap: 12px;
 }
 
+/* Estilos para las etiquetas de los campos de formulario, organizando el contenido en una cuadrícula con espacio entre el texto de la etiqueta y el campo de entrada, y utilizando un tamaño de fuente ligeramente más pequeño para un aspecto más compacto. */
 label {
   display: grid;
   gap: 6px;
   font-size: 0.95rem;
 }
 
+/* Estilos para los campos de entrada, textarea, select y botones, asegurando que hereden la fuente del cuerpo para mantener la coherencia visual, y estilos específicos para los campos de entrada para mejorar su apariencia y usabilidad. */
 input,
 textarea,
 select,
@@ -147,18 +189,20 @@ button {
   font: inherit;
 }
 
+/* Estilos para los campos de entrada, textarea y select, utilizando colores y sombras para crear un efecto de profundidad, bordes redondeados para un aspecto moderno, y un fondo con un efecto de campo difuminado. */
 input,
 textarea,
 select {
   width: 100%;
-  border: 1px solid var(--line);
+  border: 1px solid var(--linea);
   border-radius: 12px;
   padding: 10px 12px;
-  background: var(--field);
-  color: var(--ink);
+  background: var(--campo);
+  color: var(--tinta);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 
+/* Estilos para los placeholders de los campos de entrada y textarea, utilizando un color más suave para diferenciar el texto de placeholder del texto ingresado por el usuario. */
 input::placeholder,
 textarea::placeholder {
   color: rgba(51, 51, 51, 0.4);
@@ -166,14 +210,18 @@ textarea::placeholder {
 
 textarea {
   resize: vertical;
+  min-height: 96px;
+  max-height: 18vh;
 }
 
+/* Estilos para las filas de contenido, organizando el contenido en una cuadrícula con espacio entre los elementos, y estilos específicos para las filas de dos columnas para crear una disposición equilibrada. */
 .fila.dos-columnas {
   display: grid;
   gap: 12px;
   grid-template-columns: 1fr 1fr;
 }
 
+/* Estilos para las acciones, organizando los botones en una fila con espacio entre ellos, permitiendo que se ajusten a múltiples líneas en pantallas pequeñas, y centrando los botones para una apariencia más equilibrada. */
 .acciones {
   display: flex;
   gap: 10px;
@@ -181,6 +229,7 @@ textarea {
   justify-content: center;
 }
 
+/* Estilos para los botones, utilizando colores y sombras para crear un efecto de profundidad, bordes redondeados para un aspecto moderno, y transiciones suaves para mejorar la interactividad. */
 button {
   border: none;
   border-radius: 999px;
@@ -190,11 +239,13 @@ button {
   transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
 }
 
+/* Estilos para los botones al pasar el cursor sobre ellos, utilizando una ligera transformación y ajuste de brillo para mejorar la interactividad visual. */
 button:hover {
   transform: translateY(-2px);
   filter: brightness(0.99);
 }
 
+/* Estilos específicos para el botón de generación, utilizando un gradiente de color para el fondo, un color claro para el texto, y una sombra más pronunciada para destacarlo como la acción principal. */
 #botonGenerar {
   background: linear-gradient(180deg, #1558B0 0%, #1A73E8 100%);
   color: #F7F7F7;
@@ -202,10 +253,12 @@ button:hover {
   box-shadow: 0 14px 28px rgba(26, 115, 232, 0.28);
 }
 
+/* Estilos para el botón de generación al pasar el cursor sobre él, utilizando una sombra más pronunciada para mejorar la interactividad visual. */
 #botonGenerar:hover {
   box-shadow: 0 18px 36px rgba(26, 115, 232, 0.34);
 }
 
+/* Estilos específicos para el botón secundario, utilizando un fondo más suave y una sombra más ligera para diferenciarlo del botón de generación, y un color de texto más oscuro para mejorar la legibilidad. */
 .boton-secundario {
   background: #F7F7F7;
   color: #333333;
@@ -213,45 +266,53 @@ button:hover {
   box-shadow: 0 8px 18px rgba(8, 18, 28, 0.06);
 }
 
+/* Estilos para el botón secundario al pasar el cursor sobre él, utilizando una sombra más pronunciada para mejorar la interactividad visual. */
 .boton-secundario:hover {
   box-shadow: 0 12px 22px rgba(8, 18, 28, 0.10);
 }
 
+/* Estilos para el contenedor de salida, utilizando overflow hidden para manejar el desbordamiento del contenido generado. */
 .contenedor-salida {
   overflow: hidden;
 }
 
+/* Estilos para los metadatos del estado, organizando el contenido en una fila con espacio entre los elementos, y utilizando una fuente monoespaciada para un aspecto técnico. */
 .metadatos-estado {
   display: flex;
   gap: 10px;
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.85rem;
-  color: var(--ink-dim);
+  color: var(--tinta-suave);
   margin-bottom: 12px;
 }
 
+/* Estilos para la salida generada, utilizando un borde de acento para destacarla, un fondo con efecto de papel difuminado, y estilos para manejar el desbordamiento del contenido generado de manera elegante. */
 .salida-generada {
   margin: 0;
   border-left: 4px solid #4CAF50;
   padding: 12px 14px;
   border-radius: 10px;
-  background: var(--salida-bg);
+  background: var(--fondo-salida);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
   min-height: 90px;
+  flex: 1;
+  overflow: auto;
   white-space: pre-wrap;
   line-height: 1.6;
-  color: var(--ink);
+  color: var(--tinta);
 }
 
+/* Estilos para el pie del sitio, organizando el contenido en una fila centrada, y utilizando una fuente monoespaciada con un color suave para un aspecto técnico y discreto. */
 .pie-sitio {
-  width: min(980px, 92vw);
-  margin: 13px auto 28px;
+  width: min(1240px, 96vw);
+  margin: 0 auto 18px;
   text-align: center;
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.85rem;
   color: rgba(247, 247, 247, 0.74);
 }
 
+/* Animación para la aparición de los elementos, utilizando una transición suave de opacidad y posición para crear un efecto de elevación al aparecer. */
 @keyframes rise {
   from {
     opacity: 0;
@@ -263,7 +324,21 @@ button:hover {
   }
 }
 
+/* Estilos para pantallas pequeñas, utilizando una disposición de bloque para el cuerpo y reorganizando la cuadrícula del contenedor principal para apilar los elementos verticalmente, con ajustes específicos para el resumen del endpoint, las filas de dos columnas, las acciones y los botones para mejorar la usabilidad en dispositivos móviles. */
 @media (max-width: 720px) {
+  body {
+    display: block;
+  }
+
+  .contenedor-principal {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "cabecera"
+      "principal"
+      "secundario";
+    margin-bottom: 24px;
+  }
+
   .resumen-endpoint {
     font-size: 0.92rem;
   }
@@ -278,5 +353,9 @@ button:hover {
 
   button {
     width: 100%;
+  }
+
+  textarea {
+    max-height: none;
   }
 }

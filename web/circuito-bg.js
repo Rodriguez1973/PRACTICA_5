@@ -1,3 +1,5 @@
+// JavaScript para el fondo animado de circuito, utilizando canvas para dibujar puntos y circuitos, y animar "electrones" que se mueven a lo largo de los circuitos. El código está organizado en clases para manejar diferentes aspectos del fondo, como los puntos, los circuitos, los electrones que se mueven, y la generación del fondo estático. La animación se realiza mediante un bucle que actualiza y dibuja los elementos en cada frame.
+// Extraido de https://codepen.io/dievardump/pen/pyOMeN
 class Dots {
     constructor(width, height, spacing) {
         this.spacing = spacing;
@@ -493,10 +495,6 @@ class Background {
     }
 }
 
-
-//
-
-// background init
 const bgCanvas = document.getElementById('fondoCircuito'),
     width = bgCanvas.width = window.innerWidth,
     height = bgCanvas.height = window.innerHeight,

@@ -1,3 +1,17 @@
+/*
+              PRÁCTICA 5: Integración, automatización y modelo de negocio
+                Script de interacción con backend y generación de texto
+                       Programación de Inteligencia Artificial
+
+Este archivo contiene el código JavaScript para la aplicación web que interactúa con el backend de FastAPI para generar texto utilizando un modelo de lenguaje. El script maneja la carga de la configuración, la interacción con los elementos del formulario, la comunicación con el backend a través de fetch, y la funcionalidad de Text-to-Speech para leer el texto generado.
+
+DESARROLLADO POR:   José A. Rodríguez López
+FECHA: 29 de Marzo, 2026
+PROYECTO: Programación de Inteligencia Artificial
+================================================================================
+*/
+
+// Elementos del DOM para interacción y visualización de resultados
 const formulario = document.getElementById("formulario-generador");
 const urlApiRemota = document.getElementById("urlApiRemota");
 const salidaGenerada = document.getElementById("salidaGenerada");
@@ -7,12 +21,15 @@ const botonConexion = document.getElementById("botonConexion");
 const botonHablar = document.getElementById("botonHablar");
 const botonDetenerVoz = document.getElementById("botonDetenerVoz");
 
+// Variable para rastrear si la configuración remota está lista para usar
 let configuracionRemotaLista = false;
 
+// Función para actualizar el estado de la aplicación en la interfaz de usuario
 const establecerEstado = (texto) => {
   etiquetaEstado.textContent = texto;
 };
 
+// Función para cargar la configuración del backend y actualizar la interfaz de usuario en consecuencia
 const cargarConfiguracionWeb = async () => {
   try {
     const respuesta = await fetch("/web-config");
@@ -35,8 +52,10 @@ const cargarConfiguracionWeb = async () => {
   }
 };
 
+// Cargar la configuración al iniciar la aplicación
 cargarConfiguracionWeb();
 
+// Evento para probar la conexión con el backend y la API remota, actualizando el estado en la interfaz de usuario según el resultado
 botonConexion.addEventListener("click", async () => {
   if (!configuracionRemotaLista) {
     establecerEstado("Configura primero REMOTE_API_BASE_URL y REMOTE_API_KEY en backend");
@@ -55,6 +74,7 @@ botonConexion.addEventListener("click", async () => {
   }
 });
 
+// Evento para manejar el envío del formulario de generación de texto, validando los campos, enviando la solicitud al backend, y actualizando la interfaz de usuario con el resultado o cualquier error que ocurra durante el proceso
 formulario.addEventListener("submit", async (evento) => {
   evento.preventDefault();
 
@@ -108,6 +128,7 @@ formulario.addEventListener("submit", async (evento) => {
   }
 });
 
+// Evento para manejar la funcionalidad de Text-to-Speech, verificando que haya texto para leer, que el navegador soporte la síntesis de voz, y utilizando la API de SpeechSynthesis para reproducir el texto generado, con actualizaciones de estado durante el proceso de reproducción y manejo de errores
 botonHablar.addEventListener("click", () => {
   const texto = salidaGenerada.textContent.trim();
   if (!texto || texto === "El texto generado aparecerá aquí.") {
@@ -133,6 +154,7 @@ botonHablar.addEventListener("click", () => {
   window.speechSynthesis.speak(locucion);
 });
 
+// Evento para detener la reproducción de voz en cualquier momento, utilizando la API de SpeechSynthesis para cancelar cualquier locución en curso y actualizando el estado en la interfaz de usuario para reflejar que la lectura ha sido detenida por el usuario
 botonDetenerVoz.addEventListener("click", () => {
   if ("speechSynthesis" in window) {
     window.speechSynthesis.cancel();
