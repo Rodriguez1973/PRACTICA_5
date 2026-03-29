@@ -1,141 +1,141 @@
-const form = document.getElementById("generator-form");
-const remoteApiUrlEl = document.getElementById("remoteApiUrl");
-const output = document.getElementById("output");
-const statusLabel = document.getElementById("status");
-const elapsedLabel = document.getElementById("elapsed");
-const healthBtn = document.getElementById("healthBtn");
-const speakBtn = document.getElementById("speakBtn");
-const stopSpeakBtn = document.getElementById("stopSpeakBtn");
+const formulario = document.getElementById("formulario-generador");
+const urlApiRemota = document.getElementById("urlApiRemota");
+const salidaGenerada = document.getElementById("salidaGenerada");
+const etiquetaEstado = document.getElementById("estado");
+const etiquetaTiempo = document.getElementById("tiempoTranscurrido");
+const botonConexion = document.getElementById("botonConexion");
+const botonHablar = document.getElementById("botonHablar");
+const botonDetenerVoz = document.getElementById("botonDetenerVoz");
 
-let remoteConfigReady = false;
+let configuracionRemotaLista = false;
 
-const setStatus = (text) => {
-  statusLabel.textContent = text;
+const establecerEstado = (texto) => {
+  etiquetaEstado.textContent = texto;
 };
 
-const loadWebConfig = async () => {
+const cargarConfiguracionWeb = async () => {
   try {
-    const response = await fetch("/web-config");
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
+    const respuesta = await fetch("/web-config");
+    if (!respuesta.ok) {
+      throw new Error(`HTTP ${respuesta.status}`);
     }
-    const config = await response.json();
-    remoteApiUrlEl.textContent = config.remote_api_base_url || "no configurada";
-    if (!config.remote_key_configured) {
-      setStatus("Falta REMOTE_API_KEY en el backend");
-      remoteConfigReady = false;
+    const configuracion = await respuesta.json();
+    urlApiRemota.textContent = configuracion.remote_api_base_url || "no configurada";
+    if (!configuracion.remote_key_configured) {
+      establecerEstado("Falta REMOTE_API_KEY en el backend");
+      configuracionRemotaLista = false;
       return;
     }
-    remoteConfigReady = true;
-    setStatus("Listo");
-  } catch (err) {
-    remoteApiUrlEl.textContent = "error cargando configuracion";
-    setStatus(`Error de configuracion: ${err.message}`);
-    remoteConfigReady = false;
+    configuracionRemotaLista = true;
+    establecerEstado("Listo");
+  } catch (error) {
+    urlApiRemota.textContent = "error cargando configuracion";
+    establecerEstado(`Error de configuracion: ${error.message}`);
+    configuracionRemotaLista = false;
   }
 };
 
-loadWebConfig();
+cargarConfiguracionWeb();
 
-healthBtn.addEventListener("click", async () => {
-  if (!remoteConfigReady) {
-    setStatus("Configura primero REMOTE_API_BASE_URL y REMOTE_API_KEY en backend");
+botonConexion.addEventListener("click", async () => {
+  if (!configuracionRemotaLista) {
+    establecerEstado("Configura primero REMOTE_API_BASE_URL y REMOTE_API_KEY en backend");
     return;
   }
 
-  setStatus("Probando conexion...");
+  establecerEstado("Probando conexion...");
   try {
-    const response = await fetch("/health-remote");
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
+    const respuesta = await fetch("/health-remote");
+    if (!respuesta.ok) {
+      throw new Error(`HTTP ${respuesta.status}`);
     }
-    setStatus("Conexion con Azure API correcta");
-  } catch (err) {
-    setStatus(`No se pudo conectar: ${err.message}`);
+    establecerEstado("Conexion con Azure API correcta");
+  } catch (error) {
+    establecerEstado(`No se pudo conectar: ${error.message}`);
   }
 });
 
-form.addEventListener("submit", async (event) => {
-  event.preventDefault();
+formulario.addEventListener("submit", async (evento) => {
+  evento.preventDefault();
 
-  const seed = document.getElementById("seed").value.trim();
-  const nWords = Number(document.getElementById("nWords").value);
-  const strategy = document.getElementById("strategy").value;
-  const temperature = Number(document.getElementById("temperature").value);
+  const semilla = document.getElementById("semilla").value.trim();
+  const numeroPalabras = Number(document.getElementById("numeroPalabras").value);
+  const estrategia = document.getElementById("estrategia").value;
+  const temperatura = Number(document.getElementById("temperatura").value);
   const topK = Number(document.getElementById("topK").value);
 
-  if (!remoteConfigReady) {
-    setStatus("Configura primero REMOTE_API_BASE_URL y REMOTE_API_KEY en backend");
+  if (!configuracionRemotaLista) {
+    establecerEstado("Configura primero REMOTE_API_BASE_URL y REMOTE_API_KEY en backend");
     return;
   }
-  if (!seed) {
-    setStatus("Faltan campos obligatorios");
+  if (!semilla) {
+    establecerEstado("Faltan campos obligatorios");
     return;
   }
 
-  const payload = {
-    seed,
-    n_words: nWords,
-    strategy,
-    temperature,
+  const carga = {
+    seed: semilla,
+    n_words: numeroPalabras,
+    strategy: estrategia,
+    temperature: temperatura,
     top_k: topK,
   };
 
-  setStatus("Generando...");
-  elapsedLabel.textContent = "";
+  establecerEstado("Generando...");
+  etiquetaTiempo.textContent = "";
 
   try {
-    const response = await fetch("/generate-proxy", {
+    const respuesta = await fetch("/generate-proxy", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(carga),
     });
 
-    if (!response.ok) {
-      const error = await response.json().catch(() => ({}));
-      throw new Error(error.detail || `HTTP ${response.status}`);
+    if (!respuesta.ok) {
+      const error = await respuesta.json().catch(() => ({}));
+      throw new Error(error.detail || `HTTP ${respuesta.status}`);
     }
 
-    const data = await response.json();
-    output.textContent = data.generated_text;
-    elapsedLabel.textContent = `${data.elapsed_ms} ms`;
-    setStatus("Texto generado correctamente");
-  } catch (err) {
-    output.textContent = "No se pudo generar texto.";
-    setStatus(`Error: ${err.message}`);
+    const datos = await respuesta.json();
+    salidaGenerada.textContent = datos.generated_text;
+    etiquetaTiempo.textContent = `${datos.elapsed_ms} ms`;
+    establecerEstado("Texto generado correctamente");
+  } catch (error) {
+    salidaGenerada.textContent = "No se pudo generar texto.";
+    establecerEstado(`Error: ${error.message}`);
   }
 });
 
-speakBtn.addEventListener("click", () => {
-  const text = output.textContent.trim();
-  if (!text || text === "El texto generado aparecerá aquí.") {
-    setStatus("No hay texto para leer");
+botonHablar.addEventListener("click", () => {
+  const texto = salidaGenerada.textContent.trim();
+  if (!texto || texto === "El texto generado aparecerá aquí.") {
+    establecerEstado("No hay texto para leer");
     return;
   }
 
   if (!("speechSynthesis" in window)) {
-    setStatus("Este navegador no soporta Text-to-Speech");
+    establecerEstado("Este navegador no soporta Text-to-Speech");
     return;
   }
 
   window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "es-ES";
-  utterance.rate = 1;
-  utterance.pitch = 1;
+  const locucion = new SpeechSynthesisUtterance(texto);
+  locucion.lang = "es-ES";
+  locucion.rate = 1;
+  locucion.pitch = 1;
 
-  utterance.onstart = () => setStatus("Reproduciendo voz...");
-  utterance.onend = () => setStatus("Lectura finalizada");
-  utterance.onerror = () => setStatus("Error al sintetizar voz");
+  locucion.onstart = () => establecerEstado("Reproduciendo voz...");
+  locucion.onend = () => establecerEstado("Lectura finalizada");
+  locucion.onerror = () => establecerEstado("Error al sintetizar voz");
 
-  window.speechSynthesis.speak(utterance);
+  window.speechSynthesis.speak(locucion);
 });
 
-stopSpeakBtn.addEventListener("click", () => {
+botonDetenerVoz.addEventListener("click", () => {
   if ("speechSynthesis" in window) {
     window.speechSynthesis.cancel();
-    setStatus("Lectura detenida");
+    establecerEstado("Lectura detenida");
   }
 });

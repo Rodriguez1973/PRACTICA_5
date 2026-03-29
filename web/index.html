@@ -14,40 +14,41 @@
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
-    <main class="shell">
-      <section class="hero">
+    <canvas id="fondoCircuito"></canvas>
+    <main class="contenedor-principal">
+      <section class="cabecera">
         <h1>Integración tecnológica con modelo generativo</h1>
       </section>
 
-      <section class="panel">
-        <form id="generator-form" class="form-grid">
-          <p class="lede">
-            Endpoint remoto: <strong id="remoteApiUrl">cargando...</strong>
+      <section class="panel panel-principal">
+        <form id="formulario-generador" class="formulario-cuadricula">
+          <p class="resumen-endpoint">
+            Endpoint remoto: <strong id="urlApiRemota">cargando...</strong>
           </p>
 
-          <div class="actions">
-            <button id="healthBtn" type="button" class="ghost">Probar conexion remota</button>
+          <div class="acciones">
+            <button id="botonConexion" type="button" class="boton-secundario">Probar conexion remota</button>
           </div>
 
           <label>
             Semilla de texto
             <textarea
-              id="seed"
+              id="semilla"
               rows="4"
               placeholder="Ejemplo: En una ciudad inteligente, los sensores detectaron..."
               required
             ></textarea>
           </label>
 
-          <div class="row two-cols">
+          <div class="fila dos-columnas">
             <label>
               Número de palabras
-              <input id="nWords" type="number" min="1" max="200" value="40" />
+              <input id="numeroPalabras" type="number" min="1" max="200" value="40" />
             </label>
 
             <label>
               Estrategia
-              <select id="strategy">
+              <select id="estrategia">
                 <option value="greedy">Greedy</option>
                 <option value="sampling">Sampling</option>
                 <option value="top_k">Top-K</option>
@@ -55,10 +56,10 @@
             </label>
           </div>
 
-          <div class="row two-cols">
+          <div class="fila dos-columnas">
             <label>
               Temperatura
-              <input id="temperature" type="number" min="0.1" max="2" step="0.1" value="1.0" />
+              <input id="temperatura" type="number" min="0.1" max="2" step="0.1" value="1.0" />
             </label>
 
             <label>
@@ -67,30 +68,31 @@
             </label>
           </div>
 
-          <div class="actions">
-            <button id="submitBtn" type="submit">Generar texto</button>
-            <button id="speakBtn" type="button" class="ghost">Hablar resultado</button>
-            <button id="stopSpeakBtn" type="button" class="ghost">Detener voz</button>
+          <div class="acciones">
+            <button id="botonGenerar" type="submit">Generar texto</button>
+            <button id="botonHablar" type="button" class="boton-secundario">Hablar resultado</button>
+            <button id="botonDetenerVoz" type="button" class="boton-secundario">Detener voz</button>
           </div>
         </form>
       </section>
 
-      <section class="panel output-wrap">
-        <div class="meta">
-          <span id="status">Listo</span>
-          <span id="elapsed"></span>
+      <section class="panel panel-secundario contenedor-salida">
+        <div class="metadatos-estado">
+          <span id="estado">Listo</span>
+          <span id="tiempoTranscurrido"></span>
         </div>
-        <article id="output" class="output" aria-live="polite">
+        <article id="salidaGenerada" class="salida-generada" aria-live="polite">
           El texto generado aparecerá aquí.
         </article>
       </section>
     </main>
 
-    <footer class="site-footer">
+    <footer class="pie-sitio">
         <p>Desarrollado por: José A. Rodríguez López</p>
-        <p class="kicker">Programación de IA · Práctica 5</p>
+        <p class="texto-destacado">Programación de IA · Práctica 5</p>
     </footer>
 
+    <script src="/static/circuito-bg.js"></script>
     <script src="/static/app.js"></script>
   </body>
 </html>
