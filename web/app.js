@@ -29,8 +29,8 @@ const cargarConfiguracionWeb = async () => {
     configuracionRemotaLista = true;
     establecerEstado("Listo");
   } catch (error) {
-    urlApiRemota.textContent = "error cargando configuracion";
-    establecerEstado(`Error de configuracion: ${error.message}`);
+    urlApiRemota.textContent = "error cargando configuración";
+    establecerEstado(`Error de configuración: ${error.message}`);
     configuracionRemotaLista = false;
   }
 };
@@ -43,13 +43,13 @@ botonConexion.addEventListener("click", async () => {
     return;
   }
 
-  establecerEstado("Probando conexion...");
+  establecerEstado("Probando conexión...");
   try {
     const respuesta = await fetch("/health-remote");
     if (!respuesta.ok) {
       throw new Error(`HTTP ${respuesta.status}`);
     }
-    establecerEstado("Conexion con Azure API correcta");
+    establecerEstado("Conexión con Azure API correcta");
   } catch (error) {
     establecerEstado(`No se pudo conectar: ${error.message}`);
   }
