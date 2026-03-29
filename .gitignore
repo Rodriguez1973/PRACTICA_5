@@ -1,0 +1,35 @@
+# .gitignore - Práctica 4
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Secretos y configuración local (NUNCA al repositorio)
+.env
+
+# Modelos y datos entrenados (archivos grandes)
+output/
+data/
+*.keras
+*.h5
+*.pkl
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# TensorFlow / Keras
+logs/
+*.tfevents.*
+
+# Docker
+.dockerignore
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos comprimidos
+*.zip
