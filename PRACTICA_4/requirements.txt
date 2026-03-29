@@ -1,0 +1,8 @@
+tensorflow
+numpy
+fastapi
+uvicorn
+pydantic
+slowapi
+python-dotenv
+httpx

@@ -1,0 +1,40 @@
+# requirements.txt - Práctica 5
+# Dependencias para integraciones y clientes
+
+# ─── Cliente REST ──────────────────────────────────────
+requests==2.31.0              # Cliente HTTP
+httpx==0.27.0                 # Cliente HTTP asíncrono (alternativa)
+
+# ─── Bots Sociales ────────────────────────────────────
+discord.py==2.3.2             # Bot de Discord
+python-telegram-bot==20.3     # Bot de Telegram
+
+# ─── Text-to-Speech ───────────────────────────────────
+gtts==2.4.0                   # Google Text-to-Speech (online)
+pyttsx3==2.90                 # Text-to-Speech offline
+# pygame==2.5.2               # Para reproducir audio (opcional)
+
+# ─── Utilidades ───────────────────────────────────────
+python-dotenv==1.0.1          # Carga variables de entorno
+pydantic==2.7.1               # Validación de datos
+
+# ─── Desarrollo (Opcional) ───────────────────────────
+pytest==7.4.4                 # Testing
+black==24.1.1                 # Code formatter
+pylint==3.0.3                 # Linter
+mypy==1.8.0                   # Type checker
+
+# Para instalar todo:
+# pip install -r requirements.txt
+
+# Para instalar solo cliente Python:
+# pip install requests python-dotenv
+
+# Para instalar solo Discord:
+# pip install discord.py python-dotenv
+
+# Para instalar solo Telegram:
+# pip install python-telegram-bot python-dotenv
+
+# Para instalar solo TTS:
+# pip install gtts pyttsx3 python-dotenv
