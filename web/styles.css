@@ -63,7 +63,7 @@ canvas {
 /* Estilos para el contenedor principal, utilizando una cuadrícula para organizar la cabecera, el contenido principal y el secundario, con un fondo difuminado y animación de aparición. */
 .contenedor-principal {
   width: min(1240px, 96vw);
-  margin: 17px auto 20px auto;
+  margin: 28px auto 42px auto;
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.75fr);
   grid-template-rows: auto 1fr;
@@ -71,7 +71,7 @@ canvas {
     "cabecera cabecera"
     "principal secundario";
   column-gap: 20px;
-  row-gap: 14px;
+  row-gap: 28px;
   flex: 1;
   min-height: 0;
   align-content: stretch;
@@ -311,7 +311,7 @@ button:hover {
 /* Estilos para el pie del sitio, organizando el contenido en una fila centrada, y utilizando una fuente monoespaciada con un color suave para un aspecto técnico y discreto. */
 .pie-sitio {
   width: min(1240px, 96vw);
-  margin: 0 auto 18px;
+  margin: 0 auto 28px;
   text-align: center;
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.85rem;
